@@ -1,14 +1,14 @@
-# ZBTools · Attitude Cycle
+# Attitude Cycle · ZBTools
 
-Interactive tools hosted for [Attitude Cycle](https://attitudecycle.com).
+Static site for [Attitude Cycle](https://attitudecycle.com) — landing page plus interactive tools.
 
-## Tools
+## Site map
 
-| Tool | File / URL | Description |
-|------|------------|-------------|
-| **Tools hub** | `index.html` | Directory of all Attitude Cycle tools |
-| **Five Stages of Change** | `five-stages.html` | Why · What · How · When · Who framework |
-| **Harbor Compass** (Wellness Wheel) | [wellness_wheel](https://github.com/ShayneIsMagic/wellness_wheel) | Ten-domain well-being wheel (separate repo) |
+| Path | Description |
+|------|-------------|
+| `/` (`index.html`) | **Landing** — Attitude as the soil of every stage; links to tools |
+| `/tool.html` | **Purpose Driven Exercise** — Five Stages framework (Why · What · How · When · Who) |
+| `/wellness/` | **Harbor Compass** — Wellness wheel, ten dimensions, vision, actions, and budget |
 
 ## Running locally
 
@@ -17,52 +17,23 @@ npx --yes serve .
 # → http://localhost:3000
 ```
 
-## Public URLs (GitHub Pages)
+## Deploy
 
-After Pages is enabled on this repo:
+GitHub Pages via `.github/workflows/deploy-pages.yml` on push to `main`.
 
-- **Tools list:** `https://shayneismagic.github.io/ZBTools/`
-- **Five Stages:** `https://shayneismagic.github.io/ZBTools/five-stages.html`
-- **Harbor Compass:** `https://shayneismagic.github.io/wellness_wheel/`
+- **GitHub URL:** https://shayneismagic.github.io/ZBTools/
+- **Custom domain (optional):** `tools.attitudecycle.com` — CNAME target must be `shayneismagic.github.io` only (no path)
 
-## Cloudflare + attitudecycle.com
+To use **attitudecycle.com** as the homepage for this site, point Cloudflare `@` and `www` to GitHub Pages and set the custom domain in repo Settings → Pages.
 
-Your domain is proxied through Cloudflare. Typical setup:
+## Harbor Compass source
 
-### Main site (GoDaddy Website Builder)
+The wellness tool is copied from [wellness_wheel](https://github.com/ShayneIsMagic/wellness_wheel). After editing there, sync into `wellness/`:
 
-In **Cloudflare → DNS**, keep the records GoDaddy gave you (often `A` `@` and `CNAME` `www`) with **Proxied** (orange cloud) on. Do not delete them when adding tools.
-
-**SSL/TLS → Overview:** use **Full** (or **Full (strict)** if GoDaddy provides a valid origin certificate).
-
-### Tools subdomain (recommended)
-
-| Type | Name | Target | Proxy status |
-|------|------|--------|----------------|
-| `CNAME` | `tools` | `shayneismagic.github.io` | **DNS only** (grey cloud) |
-
-GitHub Pages needs the `CNAME` file in this repo (`tools.attitudecycle.com`). Then in **GitHub → ZBTools → Settings → Pages**, set custom domain to `tools.attitudecycle.com` and wait for the DNS check.
-
-Public tools URL: **https://tools.attitudecycle.com/**
-
-### Harbor Compass (optional second subdomain)
-
-Same pattern in the [wellness_wheel](https://github.com/ShayneIsMagic/wellness_wheel) repo if you want e.g. `compass.attitudecycle.com` → `shayneismagic.github.io`.
-
-## Link from attitudecycle.com
-
-On your GoDaddy site, add a navigation link or button:
-
-- **Label:** Tools (or “Free Tools”)
-- **URL:** `https://tools.attitudecycle.com/` (or `https://shayneismagic.github.io/ZBTools/` until DNS is live)
-
-## Repo layout
-
+```bash
+cp ../Wellness_Wheel/index.html wellness/
+cp ../Wellness_Wheel/css/main.css wellness/css/
+cp ../Wellness_Wheel/js/main.js wellness/js/
 ```
-/
-├── index.html           # Tools hub (link from attitudecycle.com)
-├── five-stages.html     # Five Stages tool
-├── Pages/               # Legacy path (source copy)
-├── Documentation/
-└── .github/workflows/   # Pages deploy
-```
+
+Preserve the `ac-site-nav` block at the top of `wellness/index.html` when syncing.
