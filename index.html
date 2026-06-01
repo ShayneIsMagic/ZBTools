@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Attitude Cycle tools — interactive frameworks for change, purpose, and whole-life well-being.">
+  <title>Tools · Attitude Cycle</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --ink: #1a1714;
+      --ink-soft: #4a4540;
+      --ink-mute: #8a8078;
+      --gold: #b8965a;
+      --gold-light: #d4b07a;
+      --gold-pale: #f0e4cc;
+      --cream: #faf7f2;
+      --cream-dark: #f0ebe2;
+      --teal: #2d6b5e;
+      --harbor: #006064;
+    }
+    html { scroll-behavior: smooth; }
+    body {
+      font-family: 'Jost', sans-serif;
+      background: var(--cream);
+      color: var(--ink);
+      font-weight: 300;
+      line-height: 1.7;
+      min-height: 100vh;
+    }
+    a { color: inherit; }
+    .skip-link {
+      position: absolute;
+      left: -9999px;
+      top: 0;
+      z-index: 999;
+      padding: 12px 16px;
+      background: var(--ink);
+      color: var(--cream);
+      text-decoration: none;
+      font-size: 0.75rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+    .skip-link:focus { left: 16px; top: 16px; }
+    header {
+      border-bottom: 1px solid var(--gold-pale);
+      padding: 1.25rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 1rem;
+      background: rgba(250, 247, 242, 0.96);
+      backdrop-filter: blur(12px);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .brand {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.15rem;
+      letter-spacing: 0.08em;
+      text-decoration: none;
+    }
+    .brand span { color: var(--gold); }
+    .site-link {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      text-decoration: none;
+    }
+    .site-link:hover { color: var(--gold); }
+    main {
+      max-width: 920px;
+      margin: 0 auto;
+      padding: 3.5rem 2rem 5rem;
+    }
+    .hero-eyebrow {
+      font-size: 0.65rem;
+      font-weight: 500;
+      letter-spacing: 0.35em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 1rem;
+    }
+    h1 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(2.25rem, 5vw, 3.5rem);
+      font-weight: 300;
+      line-height: 1.1;
+      margin-bottom: 1rem;
+    }
+    h1 em { font-style: italic; color: var(--ink-soft); }
+    .lead {
+      font-size: 1rem;
+      color: var(--ink-soft);
+      max-width: 36rem;
+      margin-bottom: 2.75rem;
+    }
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 1.25rem;
+      list-style: none;
+    }
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      background: var(--white, #fff);
+      border: 1px solid var(--gold-pale);
+      border-top: 3px solid var(--accent, var(--gold));
+      padding: 1.5rem 1.6rem 1.4rem;
+      text-decoration: none;
+      transition: transform 0.2s, box-shadow 0.2s, border-color 0.2s;
+      min-height: 100%;
+    }
+    .tool-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 32px rgba(26, 23, 20, 0.08);
+      border-color: var(--gold-light);
+    }
+    .tool-card:focus-visible {
+      outline: 2px solid var(--gold);
+      outline-offset: 3px;
+    }
+    .tool-tag {
+      font-size: 0.6rem;
+      font-weight: 500;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--ink-mute);
+      margin-bottom: 0.75rem;
+    }
+    .tool-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 1.65rem;
+      font-weight: 400;
+      line-height: 1.15;
+      margin-bottom: 0.35rem;
+    }
+    .tool-sub {
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent, var(--teal));
+      margin-bottom: 0.85rem;
+      font-weight: 500;
+    }
+    .tool-desc {
+      font-size: 0.92rem;
+      color: var(--ink-soft);
+      flex: 1;
+      margin-bottom: 1.25rem;
+    }
+    .tool-cta {
+      font-size: 0.62rem;
+      font-weight: 500;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: var(--ink);
+    }
+    .tool-card:hover .tool-cta { color: var(--gold); }
+    .tool-card[data-tool="five-stages"] { --accent: var(--teal); }
+    .tool-card[data-tool="harbor-compass"] { --accent: var(--harbor); }
+    footer {
+      margin-top: 4rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--gold-pale);
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: var(--ink-mute);
+      text-align: center;
+    }
+    footer a { color: var(--ink-soft); text-decoration: underline; text-underline-offset: 3px; }
+    @media (max-width: 600px) {
+      main { padding: 2.5rem 1.25rem 4rem; }
+      header { padding: 1rem 1.25rem; }
+    }
+  </style>
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to main content</a>
+  <header>
+    <a class="brand" href="https://attitudecycle.com" rel="noopener noreferrer">Attitude <span>Cycle</span></a>
+    <a class="site-link" href="https://attitudecycle.com" rel="noopener noreferrer">← attitudecycle.com</a>
+  </header>
+  <main id="main">
+    <p class="hero-eyebrow">Interactive tools</p>
+    <h1>Tools for <em>navigating change</em></h1>
+    <p class="lead">
+      Free, browser-based resources from Attitude Cycle. Use them on your own, with a coach, or with your team.
+      Your responses stay on your device unless you choose to export them.
+    </p>
+    <ul class="tools-grid" role="list">
+      <li>
+        <a class="tool-card" data-tool="five-stages" href="five-stages.html">
+          <span class="tool-tag">Framework</span>
+          <h2 class="tool-title">Five Stages of Change</h2>
+          <p class="tool-sub">Why · What · How · When · Who</p>
+          <p class="tool-desc">
+            A scroll-based guide through the five questions and attitude principles behind purposeful change.
+          </p>
+          <span class="tool-cta">Open tool →</span>
+        </a>
+      </li>
+      <li>
+        <a class="tool-card" data-tool="harbor-compass" href="https://shayneismagic.github.io/wellness_wheel/" rel="noopener noreferrer">
+          <span class="tool-tag">Well-being</span>
+          <h2 class="tool-title">Harbor Compass</h2>
+          <p class="tool-sub">Wellness wheel · 10 domains</p>
+          <p class="tool-desc">
+            Reflect across Stanford WELL for Life domains—score your wheel, craft a vision, plan actions, and align your budget with the life you are building.
+          </p>
+          <span class="tool-cta">Open tool ↗</span>
+        </a>
+      </li>
+    </ul>
+  </main>
+  <footer>
+    <p>© Attitude Cycle · <a href="https://attitudecycle.com" rel="noopener noreferrer">attitudecycle.com</a></p>
+  </footer>
+</body>
+</html>
