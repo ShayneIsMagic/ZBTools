@@ -25,14 +25,36 @@ After Pages is enabled on this repo:
 - **Five Stages:** `https://shayneismagic.github.io/ZBTools/five-stages.html`
 - **Harbor Compass:** `https://shayneismagic.github.io/wellness_wheel/`
 
+## Cloudflare + attitudecycle.com
+
+Your domain is proxied through Cloudflare. Typical setup:
+
+### Main site (GoDaddy Website Builder)
+
+In **Cloudflare → DNS**, keep the records GoDaddy gave you (often `A` `@` and `CNAME` `www`) with **Proxied** (orange cloud) on. Do not delete them when adding tools.
+
+**SSL/TLS → Overview:** use **Full** (or **Full (strict)** if GoDaddy provides a valid origin certificate).
+
+### Tools subdomain (recommended)
+
+| Type | Name | Target | Proxy status |
+|------|------|--------|----------------|
+| `CNAME` | `tools` | `shayneismagic.github.io` | **DNS only** (grey cloud) |
+
+GitHub Pages needs the `CNAME` file in this repo (`tools.attitudecycle.com`). Then in **GitHub → ZBTools → Settings → Pages**, set custom domain to `tools.attitudecycle.com` and wait for the DNS check.
+
+Public tools URL: **https://tools.attitudecycle.com/**
+
+### Harbor Compass (optional second subdomain)
+
+Same pattern in the [wellness_wheel](https://github.com/ShayneIsMagic/wellness_wheel) repo if you want e.g. `compass.attitudecycle.com` → `shayneismagic.github.io`.
+
 ## Link from attitudecycle.com
 
 On your GoDaddy site, add a navigation link or button:
 
 - **Label:** Tools (or “Free Tools”)
-- **URL:** `https://shayneismagic.github.io/ZBTools/`
-
-Optional: use a custom subdomain (e.g. `tools.attitudecycle.com`) with a CNAME to `shayneismagic.github.io` and a `CNAME` file in this repo—see [GitHub Pages custom domains](https://docs.github.com/en/pages/configuring-a-custom-domain-for-your-github-pages-site).
+- **URL:** `https://tools.attitudecycle.com/` (or `https://shayneismagic.github.io/ZBTools/` until DNS is live)
 
 ## Repo layout
 
